@@ -1,7 +1,5 @@
 import React from "react";
-import Joke from "./Joke";
 
-import JokeData from "./JokeData";
 
 
 //Map
@@ -10,15 +8,67 @@ import JokeData from "./JokeData";
 
 const App = () =>{
 
-    const jokes = JokeData.map(joke => {
-        return <Joke question={joke.question} punchLine={joke.punchLine} key={joke.id}/>
-    })
-
     return(
         <div>
-           {jokes}
+            <h1>Hello World!</h1>
         </div>
-    );
+    )
+
+    
 };
 
 export default App;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// import Joke from "./Joke";
+
+// import JokeData from "./JokeData";
+
+
+// const jokes = JokeData.map(joke => {
+//     return <Joke question={joke.question} punchLine={joke.punchLine} key={joke.id}/>
+// })
+
+// return(
+//     <div>
+//        {jokes}
+//     </div>
