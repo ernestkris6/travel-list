@@ -7,13 +7,13 @@ const initialItems = [
     {
         "id" : 1,
         "description" : "Socks",
-        "packed" : false,
+        "packed" : true,
         "quantity" : 3
     },
     {
         "id" : 2,
         "description" : "Charger",
-        "packed" : false,
+        "packed" : true,
         "quantity" : 3
     },
     {
@@ -83,7 +83,7 @@ function Item({item}){
                 {item.quantity}
                 </span>) : null 
                 }
-            <button>&times;</button>
+            <button>❌</button>
         </li>
     )
 }
