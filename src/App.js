@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import './index.css';
 //Map
 //Filter
@@ -8,19 +8,19 @@ const initialItems = [
         "id" : 1,
         "description" : "Socks",
         "packed" : true,
-        "quantity" : 3
+        "quantity" : 5
     },
     {
         "id" : 2,
         "description" : "Charger",
         "packed" : true,
-        "quantity" : 3
+        "quantity" : 2
     },
     {
         "id" : 3,
         "description" : "Passport",
         "packed" : true,
-        "quantity" : 3
+        "quantity" : 1
 
     },
 ]
@@ -44,6 +44,10 @@ function Logo(){
     return <h1> 🏝 FAR AWAY 💼 </h1>
 }
 function Form(){
+    const [description, setDescription] = useState("");
+    const [quantity, setQuantity] = useState("10");
+
+
     function handleSubmit(e){
         e.preventDefault()
     }
@@ -52,12 +56,19 @@ function Form(){
             
             <form onSubmit={handleSubmit}>
             <span>What do you need for your 😍 trip?</span>
-                <select>
+                <select value={quantity} onChange={(e)=> setQuantity(Number(e.target.value))}>
                    {Array.from({length:20}, (_, i) => i + 1).map((num) =>
                     <option value={num} key={num}>{num}</option>
                 )}
                 </select>
-                <input type="text" placeholder="item..." />
+                <input 
+                type="text" 
+                placeholder="item..." 
+                value={description}
+                onChange={(e)=>
+                setDescription(e.target.value)}
+                    
+                />
                 <button>ADD</button>
             </form>
         </div>
@@ -79,10 +90,10 @@ function Item({item}){
         <li>
             {item.packed ? (<span  
             style={{textDecoration : "line-through"}}>
+                {item.quantity} 
                 {item.description}
-                {item.quantity}
-                </span>) : null 
-                }
+           </span>) : null 
+            }
             <button>❌</button>
         </li>
     )
