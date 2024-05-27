@@ -29,7 +29,7 @@ const App = () =>{
     const [items, setItems] = useState([]);
 
     function handleAddItems(item){
-        setItems((items) => [...items, item]);
+        setItems((items)=> [...items, item])
     }
 
     function handleDeleteItems(id){
