@@ -3,35 +3,40 @@ import './index.css';
 //Map
 //Filter
 //Sorting
-const initialItems = [
-    {
-        "id" : 1,
-        "description" : "Socks",
-        "packed" : true,
-        "quantity" : 5
-    },
-    {
-        "id" : 2,
-        "description" : "Charger",
-        "packed" : true,
-        "quantity" : 2
-    },
-    {
-        "id" : 3,
-        "description" : "Passport",
-        "packed" : true,
-        "quantity" : 1
+// const initialItems = [
+//     {
+//         "id" : 1,
+//         "description" : "Socks",
+//         "packed" : false,
+//         "quantity" : 5
+//     },
+//     {
+//         "id" : 2,
+//         "description" : "Charger",
+//         "packed" : true,
+//         "quantity" : 2
+//     },
+//     {
+//         "id" : 3,
+//         "description" : "Passport",
+//         "packed" : true,
+//         "quantity" : 1
 
-    },
-]
+//     },
+// ]
 
 const App = () =>{
+    const [items, setItems] = useState([]);
+
+    function handleAddItems(item){
+        setItems((items) => [...items, item]);
+    }
 
     return(
         <div>
             <Logo />
-            <Form />
-            <PackingList />
+            <Form onAddItems={handleAddItems}/>
+            <PackingList items={items}/>
             <Stats />
         </div>
         
@@ -43,23 +48,28 @@ const App = () =>{
 function Logo(){
     return <h1> 🏝 FAR AWAY 💼 </h1>
 }
-function Form(){
-    const [description, setDescription] = useState("");
-    const [quantity, setQuantity] = useState("10");
 
+
+function Form({onAddItems}){
+    const [description, setDescription] = useState("");
+    const [quantity, setQuantity] = useState("1");
+   
 
     function handleSubmit(e){
-        e.preventDefault()
+        e.preventDefault();
+
+        const newItem = {description, id:Date.now(), packed:false, quantity}
+
+        console.log(newItem);
 
         if(!description) return null;
 
-        const newItem = {description, quantity,packed: false, id: Date.now()}
-        console.log(newItem);
-
+        onAddItems(newItem);
+        
         setDescription("");
         setQuantity(1);
+        
     }
-
 
 
     return(
@@ -86,10 +96,10 @@ function Form(){
     )
 }
 
-function PackingList(){
+function PackingList({items}){
     return (
         <ul className="list">
-            {initialItems.map((item)=> (
+            {items.map((item)=> (
                 <Item item={item} key={item.id}/>
             ))}
         </ul>
@@ -99,12 +109,11 @@ function PackingList(){
 function Item({item}){
     return (
         <li>
-            {item.packed ? (<span  
-            style={{textDecoration : "line-through"}}>
-                {item.quantity} 
-                {item.description}
-           </span>) : null 
-            }
+            <span style={item.packed ? {textDecoration : "line-through"} : {}}>
+            {item.quantity}
+            {" "}
+            {item.description}
+            </span>
             <button>❌</button>
         </li>
     )
