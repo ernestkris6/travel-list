@@ -59,12 +59,11 @@ function Form({onAddItems}){
         e.preventDefault();
 
         const newItem = {description, id:Date.now(), packed:false, quantity}
-
-        console.log(newItem);
-
-        if(!description) return null;
+        
+        if(!description) return;
 
         onAddItems(newItem);
+        console.log(newItem);
         
         setDescription("");
         setQuantity(1);
