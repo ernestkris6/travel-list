@@ -36,11 +36,15 @@ const App = () =>{
         setItems(items.filter((item)=> item.id !== id))
     }
 
+    function handleToggleItem(id){
+        setItems(items.map((item)=> item.id === id ? {...item, packed: !item.packed} : item))
+    }
+
     return(
         <div>
             <Logo />
             <Form onAddItems={handleAddItems}/>
-            <PackingList items={items} onDeleteItems={handleDeleteItems}/>
+            <PackingList items={items} onDeleteItems={handleDeleteItems} onToggleItems={handleToggleItem}/>
             <Stats />
         </div>
         
@@ -99,12 +103,12 @@ function Form({onAddItems}){
     )
 }
 
-function PackingList({items, onDeleteItems}){
+function PackingList({items, onDeleteItems, onToggleItems}){
     return (
         <div className="list">
             <ul className="list">
             {items.map((item)=> (
-                <Item item={item} key={item.id} onDeleteItems={onDeleteItems} />
+                <Item item={item} key={item.id} onDeleteItems={onDeleteItems} onToggleItems={onToggleItems} />
             ))}
         </ul>
         </div>
@@ -112,10 +116,14 @@ function PackingList({items, onDeleteItems}){
     )
 }
 
-function Item({item, onDeleteItems}){
+function Item({item, onDeleteItems, onToggleItems}){
     return (
         <li>
-            <span style={item.packed ? {textDecoration : "line-through"} : {}}>
+            <input type="checkbox" 
+            value={item.packed} 
+            onChange={()=> onToggleItems(item.id)}
+            />
+            <span style={item.packed ? {textDecoration : "line-through"} : {textDecoration: "none"}}>
             {item.quantity}
             {" "}
             {item.description}
@@ -128,10 +136,10 @@ function Item({item, onDeleteItems}){
 function Stats(){
     return(
         <footer className="stats">
-           <em>
-           <p>You have X items on your list, 
-            and you already packed X (X%)</p>
-           </em>
+          
+           <p>💼<em>You have X items on your list, 
+            and you already packed X (X%)</em>💼</p>
+           
         </footer>
     )
 }
